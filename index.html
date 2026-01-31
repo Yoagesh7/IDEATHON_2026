@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Ideathon 2026 | National Level Innovation Challenge</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Chakra+Petch:wght@700&amp;family=Nunito:wght@900&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B0CB1F",
+                        "accent-black": "#000000",
+                        "accent-white": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "chakra": ["Inter", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"],
+                        "rounded": ["Nunito", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                background-color: #B0CB1F;
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+            }
+            html {
+                overflow-x: hidden;
+                width: 100%;
+            }
+        }
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .glass-card {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(157, 255, 42, 0.05);
+            border: 1px solid rgba(157, 255, 42, 0.2);
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+        }
+        .theme-glass-card {
+            position: relative;
+            overflow: hidden;
+            background: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .theme-glass-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.3);
+        }
+        .card-image-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            transition: transform 0.8s ease;
+        }
+        .theme-glass-card:hover .card-image-bg {
+            transform: scale(1.1);
+        }
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1;
+            transition: background 0.4s ease, backdrop-filter 0.4s ease;
+        }
+        .theme-glass-card:hover .card-overlay {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .glow-card-lime {
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px -10px rgba(176, 203, 31, 0.3);
+        }
+        .glow-card-lime:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px -10px rgba(176, 203, 31, 0.5);
+        }
+        .text-high-contrast {
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+        .futuristic-display {
+            letter-spacing: -0.05em;
+            font-stretch: expanded;
+        }
+        #dot-grid-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #000000;
+            border-radius: 50%;
+            opacity: 0;
+            transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform, opacity;
+        }
+        @layer utilities {
+            .neon-glow {
+                text-shadow: 0 0 10px rgba(176, 203, 31, 0.5), 0 0 20px rgba(176, 203, 31, 0.3);
+            }
+            .icon-glow {
+                filter: drop-shadow(0 0 8px rgba(176, 203, 31, 0.6));
+            }
+            .tech-grid {
+                background-image: radial-gradient(#111 1px, transparent 1px);
+                background-size: 30px 30px;
+            }
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .animate-float-delay-1 {
+                animation: float 7s ease-in-out 1s infinite;
+            }
+            .animate-float-delay-2 {
+                animation: float 8s ease-in-out 2s infinite;
+            }
+            /* Lightbulb & Wire CSS */
+            .bulb-container {
+                display: inline-flex;
+                flex-direction: column;
+                align-items: center;
+                vertical-align: text-bottom;
+                position: relative;
+                height: 1em;
+                justify-content: flex-end;
+                z-index: 100; /* Increased z-index */
+                pointer-events: auto; /* Ensure clicks pass through if needed, but container might not need it */
+            }
+            .wire-long {
+                width: 2px;
+                height: 200vh;
+                background: #000;
+                position: absolute;
+                bottom: 85%;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 0;
+                pointer-events: none;
+            }
+            .bulb {
+                position: relative;
+                z-index: 101; /* Highest z-index for interaction */
+                transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                line-height: 1;
+                margin-top: 5px;
+                pointer-events: auto; /* Explicitly enable pointer events */
+                touch-action: none; /* Important for touch dragging */
+            }
+            /* Overwrite wire styling from previous implementation if any */
+            .wire { display: none; } 
+
+            .bulb span {
+                font-size: 1.1em !important;
+                display: block;
+                transform: rotate(180deg);
+            }
+            /* Adjust active state to account for the initial transform */
+            .bulb:active {
+                cursor: grabbing;
+            }
+            .bulb-on span {
+                color: #ffffff !important;
+                text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.8), 0 0 90px rgba(255, 255, 255, 0.6);
+                filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9));
+            }
+            @keyframes blink {
+                0%, 100% { opacity: 1; color: #ffffff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+                50% { opacity: 0.3; color: #000000; text-shadow: none; }
+            }
+            .animating-blink span {
+                animation: blink 0.4s ease-in-out 3;
+            }
+        }
+        /* New Animation Enters */
+        .reveal-hidden-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-hidden-right {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translate(0, 0) !important;
+        }
+        /* Bulb Initial State */
+        .bulb-enter-initial {
+            transform: translateY(-200%) !important;
+            opacity: 0; 
+        }
+        .bulb-animate-in {
+            animation: bulbDrop 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes bulbDrop {
+            0% { transform: translateY(-200%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        /* Staggered Hero Animations */
+        .hero-fade-in-up {
+            opacity: 0;
+            animation: heroFadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        @keyframes heroFadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body class="font-display text-accent-black selection:bg-black selection:text-primary overflow-x-hidden">
+    <div class="relative flex min-h-screen flex-col">
+        <nav class="sticky top-0 z-50 glass-nav px-6 lg:px-12 py-3">
+            <div class="mx-auto flex max-w-[1400px] items-center justify-between">
+                <div class="flex items-center gap-3 lg:gap-4">
+                    <!-- College Logo Placeholder -->
+                    <div class="flex items-center gap-2 lg:gap-3">
+                        <img src="sns-logo.png" alt="SNS Logo" class="h-8 lg:h-12 w-auto object-contain">
+                        <img src="college-logo.png" alt="College Logo" class="h-8 lg:h-12 w-auto object-contain">
+                    </div>
+                </div>
+                <div class="hidden items-center gap-8 lg:flex">
+                    <a class="text-sm font-bold hover:opacity-70 transition-opacity uppercase"
+                        href="#hero-section">Overview</a>
+                    <a class="text-sm font-bold hover:opacity-70 transition-opacity uppercase" href="#prizes">Prizes</a>
+                    <a class="text-sm font-bold hover:opacity-70 transition-opacity uppercase"
+                        href="#themes-section">Themes</a>
+                    <a class="text-sm font-bold hover:opacity-70 transition-opacity uppercase" href="#phases">Phases</a>
+                    <a class="text-sm font-bold hover:opacity-70 transition-opacity uppercase"
+                        href="#eligibility">Eligibility</a>
+                    <a class="text-sm font-bold hover:opacity-70 transition-opacity uppercase"
+                        href="#queries">Queries</a>
+                </div>
+                <div class="flex items-center gap-2 lg:gap-4">
+                    <a href="https://docs.google.com/forms/d/1EbT99ZjHz79IAl3YhGscx53XDN650-6nWg3l_8oDeSg/viewform?pli=1&pli=1&edit_requested=true"
+                        target="_blank"
+                        class="flex items-center justify-center rounded-full bg-black px-4 lg:px-6 py-2.5 text-xs lg:text-sm font-bold text-primary transition-transform hover:scale-105 active:scale-95 whitespace-nowrap">
+                        Register Now
+                    </a>
+
+                    <!-- Hamburger Button -->
+                    <button id="mobile-menu-btn" class="flex flex-col gap-[6px] p-2 lg:hidden z-50 relative group">
+                        <span
+                            class="w-8 h-[3px] bg-black rounded-full transition-all duration-300 origin-center group-hover:bg-primary"></span>
+                        <span
+                            class="w-8 h-[3px] bg-black rounded-full transition-all duration-300 origin-center group-hover:bg-primary"></span>
+                        <span
+                            class="w-8 h-[3px] bg-black rounded-full transition-all duration-300 origin-center group-hover:bg-primary"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu"
+                class="absolute top-[calc(100%+10px)] right-4 w-60 bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl origin-top-right transition-all duration-300 opacity-0 scale-95 invisible lg:hidden z-40 overflow-hidden">
+                <nav class="flex flex-col p-2 text-left">
+                    <a class="block px-4 py-3 text-lg font-bold text-white hover:text-primary hover:bg-white/5 rounded-xl transition-all duration-300 mobile-link opacity-0 translate-x-4"
+                        href="#hero-section">Overview</a>
+                    <a class="block px-4 py-3 text-lg font-bold text-white hover:text-primary hover:bg-white/5 rounded-xl transition-all duration-300 mobile-link opacity-0 translate-x-4"
+                        href="#prizes">Prizes</a>
+                    <a class="block px-4 py-3 text-lg font-bold text-white hover:text-primary hover:bg-white/5 rounded-xl transition-all duration-300 mobile-link opacity-0 translate-x-4"
+                        href="#themes-section">Themes</a>
+                    <a class="block px-4 py-3 text-lg font-bold text-white hover:text-primary hover:bg-white/5 rounded-xl transition-all duration-300 mobile-link opacity-0 translate-x-4"
+                        href="#phases">Phases</a>
+                    <a class="block px-4 py-3 text-lg font-bold text-white hover:text-primary hover:bg-white/5 rounded-xl transition-all duration-300 mobile-link opacity-0 translate-x-4"
+                        href="#eligibility">Eligibility</a>
+                    <a class="block px-4 py-3 text-lg font-bold text-white hover:text-primary hover:bg-white/5 rounded-xl transition-all duration-300 mobile-link opacity-0 translate-x-4"
+                        href="#queries">Queries</a>
+                </nav>
+            </div>
+        </nav>
+
+        <script>
+            // Mobile Menu Toggle Script
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            let isMenuOpen = false;
+
+            if (menuBtn && mobileMenu) {
+                // Initial State: Ensure links are hidden
+                mobileLinks.forEach(link => link.classList.add('opacity-0', 'translate-x-4'));
+
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent closing immediately
+                    isMenuOpen = !isMenuOpen;
+                    if (isMenuOpen) {
+                        // Open Menu
+                        mobileMenu.classList.remove('opacity-0', 'scale-95', 'invisible');
+                        mobileMenu.classList.add('opacity-100', 'scale-100', 'visible');
+
+                        // Animate Hamburger
+                        menuBtn.children[0].classList.add('rotate-45', 'translate-y-[9px]', 'bg-white');
+                        menuBtn.children[0].classList.remove('bg-black');
+
+                        menuBtn.children[1].classList.add('opacity-0');
+
+                        menuBtn.children[2].classList.add('-rotate-45', '-translate-y-[9px]', 'bg-white');
+                        menuBtn.children[2].classList.remove('bg-black');
+
+                        // Animate Links Staggered
+                        mobileLinks.forEach((link, index) => {
+                            setTimeout(() => {
+                                link.classList.remove('opacity-0', 'translate-x-4');
+                            }, index * 60); // 60ms delay between each item
+                        });
+                    } else {
+                        closeMenu();
+                    }
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (isMenuOpen && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                        closeMenu();
+                    }
+                });
+
+                // Close menu when a link is clicked
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        closeMenu();
+                    });
+                });
+
+                function closeMenu() {
+                    isMenuOpen = false;
+                    // Hide Menu
+                    mobileMenu.classList.add('opacity-0', 'scale-95', 'invisible');
+                    mobileMenu.classList.remove('opacity-100', 'scale-100', 'visible');
+
+                    // Reset Hamburger
+                    menuBtn.children[0].classList.remove('rotate-45', 'translate-y-[9px]', 'bg-white');
+                    menuBtn.children[0].classList.add('bg-black');
+
+                    menuBtn.children[1].classList.remove('opacity-0');
+
+                    menuBtn.children[2].classList.remove('-rotate-45', '-translate-y-[9px]', 'bg-white');
+                    menuBtn.children[2].classList.add('bg-black');
+
+                    // Reset Links immediately or with slight delay
+                    mobileLinks.forEach(link => {
+                        link.classList.add('opacity-0', 'translate-x-4');
+                    });
+                }
+            }
+        </script>
+        <section class="relative px-6 py-20 lg:px-40 lg:py-24 overflow-hidden min-h-[90vh] flex items-center"
+            id="hero-section">
+            <div id="dot-grid-container"></div>
+            <div class="relative z-10 mx-auto max-w-[1200px] w-full flex flex-col items-center text-center">
+                <!-- Main Heading -->
+                <h1
+                    class="text-[14vw] sm:text-[14vw] lg:text-[9rem] font-[900] neon-glow leading-[0.85] text-high-contrast relative z-10 mb-6 flex items-center justify-center gap-0 lg:gap-0">
+                    <span class="text-[#1a1a1a] hero-fade-in-up font-rounded" style="animation-delay: 0.2s;">i</span>
+                    <span class="text-white hero-fade-in-up font-rounded" style="animation-delay: 0.25s;">d</span>
+                    <span class="text-white hero-fade-in-up font-rounded" style="animation-delay: 0.3s;">e</span>
+                    <span class="text-[#1a1a1a] hero-fade-in-up font-rounded" style="animation-delay: 0.35s;">a</span>
+                    <span class="text-[#1a1a1a] hero-fade-in-up font-rounded" style="animation-delay: 0.4s;">t</span>
+                    <span class="text-[#1a1a1a] hero-fade-in-up font-rounded" style="animation-delay: 0.45s;">h</span>
+                    <div class="bulb-container -mx-[1vw] lg:-mx-2">
+                        <div id="lightbulb" class="bulb cursor-pointer text-[#1a1a1a] bulb-enter-initial"
+                            title="Pull me!">
+                            <div class="wire-long"></div>
+                            <span
+                                class="material-symbols-outlined select-none text-[14vw] sm:text-[12vw] lg:text-[9rem]"
+                                style="font-size: 0.8em !important; font-variation-settings: 'FILL' 1;">lightbulb</span>
+                        </div>
+                    </div>
+                    <span class="text-[#1a1a1a] hero-fade-in-up font-rounded" style="animation-delay: 0.6s;">n</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="max-w-[90%] lg:max-w-4xl text-[3.5vw] sm:text-lg lg:text-2xl font-bold text-black/60 leading-relaxed relative z-10 mb-12 hero-fade-in-up"
+                    style="animation-delay: 0.8s;">
+                    The ultimate stage for visionary thinkers. Turn your groundbreaking ideas into reality.
+                </p>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12 w-full max-w-5xl mb-12">
+                    <!-- ₹8L+ -->
+                    <div class="flex flex-col items-center hero-fade-in-up" style="animation-delay: 1.0s;">
+                        <div class="text-[8vw] sm:text-[5vw] lg:text-7xl font-black text-black mb-1 lg:mb-2">₹8L+
+                        </div>
+                        <div
+                            class="text-[2.5vw] sm:text-xs lg:text-sm font-black uppercase tracking-widest text-black/70">
+                            Worth Prizes</div>
+                    </div>
+                    <!-- 500+ -->
+                    <div class="flex flex-col items-center hero-fade-in-up" style="animation-delay: 1.2s;">
+                        <div class="text-[8vw] sm:text-[5vw] lg:text-7xl font-black text-black mb-1 lg:mb-2">500+
+                        </div>
+                        <div
+                            class="text-[2.5vw] sm:text-xs lg:text-sm font-black uppercase tracking-widest text-black/70">
+                            Registrations</div>
+                    </div>
+                    <!-- 6 -->
+                    <div class="flex flex-col items-center hero-fade-in-up" style="animation-delay: 1.4s;">
+                        <div class="text-[8vw] sm:text-[5vw] lg:text-7xl font-black text-black mb-1 lg:mb-2">6</div>
+                        <div
+                            class="text-[2.5vw] sm:text-xs lg:text-sm font-black uppercase tracking-widest text-black/70">
+                            Challenge Tracks
+                        </div>
+                    </div>
+                    <!-- 24HR -->
+                    <div class="flex flex-col items-center hero-fade-in-up" style="animation-delay: 1.6s;">
+                        <div class="text-[8vw] sm:text-[5vw] lg:text-7xl font-black text-white mb-1 lg:mb-2"
+                            style="text-shadow: 1px 1px 0 rgba(0,0,0,0.3);">24HR</div>
+                        <div
+                            class="text-[2.5vw] sm:text-xs lg:text-sm font-black uppercase tracking-widest text-black/70">
+                            Sprint</div>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#phases"
+                        class="group flex items-center gap-3 rounded-full bg-black px-8 py-4 text-base font-black text-primary transition-all hover:scale-105">
+                        Join the Challenge
+                        <span
+                            class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+                    </a>
+                    <a href="Ideathon_Brochure.jpg" download="Ideathon_Brochure.jpg"
+                        class="rounded-full border-2 border-black bg-transparent px-8 py-4 text-base font-black text-black transition-colors hover:bg-black hover:text-primary">
+                        Download Brochure
+                    </a>
+                    <a href="https://maps.app.goo.gl/iNdF2UEGGP7Skfsp8" target="_blank"
+                        class="flex items-center gap-3 rounded-full border-2 border-black bg-transparent px-8 py-4 text-base font-black text-black transition-colors hover:bg-black hover:text-primary">
+                        View Venue Map
+                        <span class="material-symbols-outlined">location_on</span>
+                    </a>
+                </div>
+            </div>
+    </div>
+    </section>
+    <section class="bg-black px-6 py-24 lg:px-40 relative overflow-hidden tech-grid" id="prizes">
+        <!-- Floating Emojis -->
+        <div
+            class="absolute top-10 left-10 text-[6rem] lg:text-[10rem] font-black text-primary opacity-10 animate-float pointer-events-none select-none tracking-tighter">
+            WINNER</div>
+        <div
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10rem] opacity-10 animate-float-delay-2 pointer-events-none select-none blur-sm">
+            🥈</div>
+
+        <div class="mx-auto max-w-[1200px] relative z-10">
+            <div class="mb-16 text-left">
+                <div
+                    class="bg-primary text-black inline-block px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-4">
+                    REWARD POOL</div>
+                <h2
+                    class="text-6xl lg:text-8xl font-[900] text-primary neon-glow leading-none uppercase tracking-tighter">
+                    THE STAKES</h2>
+            </div>
+            <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                <div
+                    class="glow-card-lime bg-primary rounded-[2.5rem] p-10 lg:p-14 flex flex-col items-start justify-center text-left min-h-[400px] reveal-on-scroll reveal-hidden-left">
+                    <div class="w-full">
+                        <div class="flex flex-col items-start">
+                            <span class="material-symbols-outlined text-black text-6xl mb-4">emoji_events</span>
+                            <span class="text-black/40 text-sm font-black uppercase tracking-widest mb-2">RANK
+                                01</span>
+                            <h3 class="text-black text-2xl font-black uppercase mb-8">WINNER</h3>
+                            <div
+                                class="text-black text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter whitespace-nowrap">
+                                ₹ 5 Lakhs
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="glow-card-lime bg-primary rounded-[2.5rem] p-10 lg:p-14 flex flex-col items-start justify-center text-left min-h-[400px] reveal-on-scroll reveal-hidden-right">
+                    <div class="w-full">
+                        <div class="flex flex-col items-start">
+                            <span class="material-symbols-outlined text-black text-6xl mb-4">workspace_premium</span>
+                            <span class="text-black/40 text-sm font-black uppercase tracking-widest mb-2">RANK
+                                02</span>
+                            <h3 class="text-black text-2xl font-black uppercase mb-8">RUNNER-UP</h3>
+                            <div
+                                class="text-black text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter whitespace-nowrap">
+                                ₹ 2 Lakhs
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="mt-16 flex flex-col md:flex-row md:items-end justify-between gap-8 border-t-4 border-primary pt-8">
+                <div class="space-y-2 text-left">
+                    <p class="text-3xl font-black text-primary uppercase">Top 8 Teams - Attractive Cash Prize
+                    </p>
+                    <p class="text-lg font-bold text-white/50">Participation certificates for all finalists and
+                        exclusive mentorship support from industry veterans.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary px-6 py-8 lg:px-40" id="themes-section">
+        <div class="mx-auto max-w-[1200px]">
+            <div class="mb-16 text-left">
+                <div
+                    class="bg-black text-primary inline-block px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-4">
+                    EXPLORE FIELDS</div>
+                <h2
+                    class="text-6xl lg:text-8xl font-[900] text-black neon-glow leading-none uppercase tracking-tighter">
+                    THEMES</h2>
+                <p class="mt-6 text-black/80 font-bold text-xl max-w-xl">Choose your domain and start building
+                    revolutionary solutions for the future.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div
+                    class="theme-glass-card rounded-[3rem] p-12 flex flex-col items-start min-h-[500px] justify-between group reveal-on-scroll reveal-hidden-left">
+                    <div class="card-image-bg"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCPfyX3SlAS1qQhG0mLG3N_qfV73QvZVwz6XKYpQG8_wURgRNOfUwnKwZ2lldUtQ9NAUPMhUAxZ1QSK2Yjj9qouGsCQhu12xGTp4CsB10oRRCYNHEibWfD-YIlBJBxTyFkLjjapWIrO2GEPOECeJIktPpwKi1_FNeG02B-95IJ6HofMYHWcWaDBXBugwvLpJyqfF8FH6_l3p5hRdSWiOhGI2wXbDDJZOF-gWbFzliOJ5-UQ2Pvi8wFZ2y_whtLFFCtjWC7V6fveI3Q');">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <!-- Floating Icon 1 (Main - Moved to Top Right) -->
+                    <div class="absolute -top-16 -right-16 z-10 opacity-20 animate-float pointer-events-none">
+                        <span class="material-symbols-outlined text-[18rem] text-white">eco</span>
+                    </div>
+                    <!-- Floating Icon 2 -->
+                    <div class="absolute bottom-10 left-10 z-10 opacity-10 animate-float-delay-2 pointer-events-none">
+                        <span class="material-symbols-outlined text-[8rem] text-primary">solar_power</span>
+                    </div>
+                    <!-- Floating Icon 3 -->
+                    <div class="absolute bottom-20 right-20 z-10 opacity-10 animate-float-delay-1 pointer-events-none">
+                        <span class="material-symbols-outlined text-[10rem] text-white">recycling</span>
+                    </div>
+                    <div class="relative z-10 w-full flex flex-col h-full justify-between">
+                        <div class="bg-white/10 text-primary w-20 h-20 flex items-center justify-center rounded-2xl">
+                            <span class="material-symbols-outlined text-5xl">eco</span>
+                        </div>
+                        <div class="text-left mt-12">
+                            <h3 class="text-4xl font-black text-white uppercase leading-tight mb-4">
+                                Sustainability &amp; Green Tech</h3>
+                            <p class="text-sm font-black text-white/70 uppercase tracking-widest">Renewable
+                                Energy • Solar • Eco-Materials</p>
+                            <p class="mt-4 text-white font-bold text-lg max-w-md">Develop solutions that promote
+                                environmental health and harness clean energy sources.</p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="theme-glass-card rounded-[3rem] p-12 flex flex-col items-start min-h-[500px] justify-between group reveal-on-scroll reveal-hidden-right">
+                    <div class="card-image-bg"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHUR9SqhYLNnSIr1b94pVP0bwnRzzW0vuojcKpOedbCrkEpIRBvb3EpLENtD_iGKdhTp25R1wVm3Fmm-b5LZilSA3uuGBLPPBsdclmy4R3Bi0qNtQHXPXbbnudKQVmg3KmDWhjrMYEPCb3XUxNcwBorf8qVDm17OqyC1ejiFbISN_YwNCswklBWaoAFyGxIfT3YDP9Ies9T9lcKS15qlJzhFeJpE1tLF-JKh7p6pceM7QHv5j3ytB_OY45eRMcQ2A7lvITbOyhp4w');">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <!-- Floating Icon 1 (Main - Moved to Top Right) -->
+                    <div class="absolute -top-16 -right-16 z-10 opacity-20 animate-float-delay-1 pointer-events-none">
+                        <span class="material-symbols-outlined text-[18rem] text-white">health_and_safety</span>
+                    </div>
+                    <!-- Floating Icon 2 -->
+                    <div class="absolute bottom-12 right-12 z-10 opacity-10 animate-float-delay-2 pointer-events-none">
+                        <span class="material-symbols-outlined text-[7rem] text-primary">monitor_heart</span>
+                    </div>
+                    <!-- Floating Icon 3 -->
+                    <div class="absolute bottom-10 left-8 z-10 opacity-10 animate-float pointer-events-none">
+                        <span class="material-symbols-outlined text-[9rem] text-white">medical_services</span>
+                    </div>
+                    <div class="relative z-10 w-full flex flex-col h-full justify-between">
+                        <div class="bg-white/10 text-primary w-20 h-20 flex items-center justify-center rounded-2xl">
+                            <span class="material-symbols-outlined text-5xl">health_and_safety</span>
+                        </div>
+                        <div class="text-left mt-12">
+                            <h3 class="text-4xl font-black text-white uppercase leading-tight mb-4">Healthcare
+                                &amp; Assistive Tech</h3>
+                            <p class="text-sm font-black text-white/70 uppercase tracking-widest">Medical
+                                Interfaces • Diagnostics • Accessibility</p>
+                            <p class="mt-4 text-white font-bold text-lg max-w-md">Revolutionize patient care and
+                                improve quality of life with cutting-edge medical interfaces.</p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="theme-glass-card rounded-[3rem] p-12 flex flex-col items-start min-h-[500px] justify-between group reveal-on-scroll reveal-hidden-left">
+                    <div class="card-image-bg"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuARhtaDqK3j9fld4XGfvxoEL1EXKSeG22UDLB_kT_HuPsy2tFm-dXAwbpHBtYe9NIwAk1tqQndJOiZYsGqK9vAJFLaW5WNjFkBIB8My7ycKH-fILP_CVOShbtl3uMRUmN5pWDOGPK2o2ZSm5MY8H7ss_kw2BJtRbXHbYm9-PuCG8JjtcgBbfd1VvbGAa9hfCuN89I1gkuiGGF-JCKOe9DfJHJAG2hmNwOdXjW18r464SVd4Q-14DUbeh3PBhGw-e_kYPK5dOr5ltWs');">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <!-- Floating Icon 1 (Main - Moved to Top Right) -->
+                    <div class="absolute -top-16 -right-16 z-10 opacity-20 animate-float-delay-2 pointer-events-none">
+                        <span class="material-symbols-outlined text-[18rem] text-white">school</span>
+                    </div>
+                    <!-- Floating Icon 2 -->
+                    <div class="absolute bottom-8 left-8 z-10 opacity-10 animate-float-delay-1 pointer-events-none">
+                        <span class="material-symbols-outlined text-[8rem] text-primary">menu_book</span>
+                    </div>
+                    <!-- Floating Icon 3 -->
+                    <div class="absolute top-1/2 left-4 z-10 opacity-10 animate-float pointer-events-none">
+                        <span class="material-symbols-outlined text-[7rem] text-white">lightbulb</span>
+                    </div>
+                    <div class="relative z-10 w-full flex flex-col h-full justify-between">
+                        <div class="bg-white/10 text-primary w-20 h-20 flex items-center justify-center rounded-2xl">
+                            <span class="material-symbols-outlined text-5xl">school</span>
+                        </div>
+                        <div class="text-left mt-12">
+                            <h3 class="text-4xl font-black text-white uppercase leading-tight mb-4">Education
+                                Technology</h3>
+                            <p class="text-sm font-black text-white/70 uppercase tracking-widest">Digital
+                                Classrooms • Ed-Tools • Glowing Books</p>
+                            <p class="mt-4 text-white font-bold text-lg max-w-md">Reimagine the future of
+                                learning by creating immersive and accessible digital educational experiences.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="theme-glass-card rounded-[3rem] p-12 flex flex-col items-start min-h-[500px] justify-between group reveal-on-scroll reveal-hidden-right">
+                    <div class="card-image-bg"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBIc8raKEM5Vn_7UCpXcnru0-Fq7R5K73mHlcxlMcR085uhfmTlLivCS7IPphoKLhb5bWI-aiCcKOZXC9FnAlbA6v7R1Svj4Jrmcs6yTiho0TG2M5lgPY79I7r8UhvI8ySIosWyme8hVG7IzOZuQR7on6MklNCk2oGvND913JcLNqoKfaIow5UCdD-xnVvEFE0GITMbL8UatH3K052VMfyUUzPAjEx1mFwtpEXeRvri_2i8hMlh9QmnbuZQNmTgn0JgWZ6twqMm578');">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <!-- Floating Icon 1 (Main - Moved to Top Right) -->
+                    <div class="absolute -top-8 -right-8 z-10 opacity-10 animate-float pointer-events-none">
+                        <span class="material-symbols-outlined text-[18rem] text-white">location_city</span>
+                    </div>
+                    <!-- Floating Icon 2 -->
+                    <div class="absolute bottom-6 left-1/2 z-10 opacity-5 animate-float-delay-2 pointer-events-none">
+                        <span class="material-symbols-outlined text-[8rem] text-primary">apartment</span>
+                    </div>
+                    <!-- Floating Icon 3 -->
+                    <div class="absolute bottom-16 left-6 z-10 opacity-5 animate-float-delay-1 pointer-events-none">
+                        <span class="material-symbols-outlined text-[9rem] text-white">traffic</span>
+                    </div>
+                    <div class="relative z-10 w-full flex flex-col h-full justify-between">
+                        <div class="bg-white/10 text-primary w-20 h-20 flex items-center justify-center rounded-2xl">
+                            <span class="material-symbols-outlined text-5xl">location_city</span>
+                        </div>
+                        <div class="text-left mt-12">
+                            <h3 class="text-4xl font-black text-white uppercase leading-tight mb-4">Smart Cities
+                                &amp; Infrastructure</h3>
+                            <p class="text-sm font-black text-white/70 uppercase tracking-widest">Futuristic
+                                Skylines • Urban Ops • Rural Dev</p>
+                            <p class="mt-4 text-white font-bold text-lg max-w-md">Design intelligent systems for
+                                urban environments and uplift rural development through technology.</p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="theme-glass-card rounded-[3rem] p-12 flex flex-col items-start min-h-[500px] justify-between group reveal-on-scroll reveal-hidden-left">
+                    <div class="card-image-bg"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC-moMmbl8slFc3w63B7ELmH_TV20FK6B9w6Z4EP7JJxF5x78G3bjLqodx2eLW92RHuetx42d9KO5y8cCWG1BhM5QuLj0uWVSw9d5jvinhww_fMs6xDemYM_2nZIUic-ejf3K8_tP9k6-5lywF7UBMRli9YBeEAB1vu3V-3knpGfm7AXL8uiRpXhrNRx1r_fcrIkwsGy5wg_mqoO9DNuxMh6oBWrIEwXyXZzYpb15r3v9Y1X0NuNPetkhCkjBY11QZO5H0DkKcYgHM');">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <!-- Floating Icon 1 (Main - Moved to Top Right) -->
+                    <div class="absolute -top-16 -right-16 z-10 opacity-20 animate-float-delay-1 pointer-events-none">
+                        <span class="material-symbols-outlined text-[18rem] text-white">settings_input_antenna</span>
+                    </div>
+                    <!-- Floating Icon 2 -->
+                    <div class="absolute bottom-10 right-10 z-10 opacity-10 animate-float-delay-2 pointer-events-none">
+                        <span class="material-symbols-outlined text-[7rem] text-primary">smart_toy</span>
+                    </div>
+                    <!-- Floating Icon 3 -->
+                    <div class="absolute top-1/3 left-4 z-10 opacity-10 animate-float pointer-events-none">
+                        <span class="material-symbols-outlined text-[9rem] text-white">memory</span>
+                    </div>
+                    <div class="relative z-10 w-full flex flex-col h-full justify-between">
+                        <div class="bg-white/10 text-primary w-20 h-20 flex items-center justify-center rounded-2xl">
+                            <span class="material-symbols-outlined text-5xl">settings_input_antenna</span>
+                        </div>
+                        <div class="text-left mt-12">
+                            <h3 class="text-4xl font-black text-white uppercase leading-tight mb-4">AI, IoT
+                                &amp; Robotics</h3>
+                            <p class="text-sm font-black text-white/70 uppercase tracking-widest">Circuitry •
+                                Automation • FinTech • AgriTech</p>
+                            <p class="mt-4 text-white font-bold text-lg max-w-md">Push the boundaries of
+                                autonomy and connectivity with advanced robotics and intelligent sensing.</p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="theme-glass-card rounded-[3rem] p-12 flex flex-col items-start min-h-[500px] justify-between group reveal-on-scroll reveal-hidden-right">
+                    <div class="card-image-bg"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB2pJg6-nnki1xUVRTPkilk-Zs-VRajLiZEhE_meCH7rcU-fV3UijG2cF7opRTFjjX2a88NQ3KrPfWlKgIZleQpP2vvvSxY8qDf1in8xkv-X6nJOFZbotdKxxzWnMwHyDFbxc3RaMlWDPdmVFUAXMEc-QAbzeiyiBFI4WrWJXTOuM_rojnwIKlCtVA7HgmDncG1TUAql3HEyAUq4FL2U6-dAYRbQlXF3dced2oobZrHXDf-FIPHP5g70aLlGwXveiAYIkhk4UujusM');">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="absolute -top-16 -right-16 z-10 opacity-20 animate-float-delay-2 pointer-events-none">
+                        <span class="material-symbols-outlined text-[18rem] text-white">diversity_3</span>
+                    </div>
+                    <!-- Floating Icon 2 -->
+                    <div class="absolute bottom-8 left-8 z-10 opacity-5 animate-float pointer-events-none">
+                        <span class="material-symbols-outlined text-[8rem] text-primary">volunteer_activism</span>
+                    </div>
+                    <!-- Floating Icon 3 -->
+                    <div class="absolute bottom-6 right-1/2 z-10 opacity-5 animate-float-delay-1 pointer-events-none">
+                        <span class="material-symbols-outlined text-[9rem] text-white">handshake</span>
+                    </div>
+                    <div class="relative z-10 w-full flex flex-col h-full justify-between">
+                        <div class="bg-white/10 text-primary w-20 h-20 flex items-center justify-center rounded-2xl">
+                            <span class="material-symbols-outlined text-5xl">diversity_3</span>
+                        </div>
+                        <div class="text-left mt-12">
+                            <h3 class="text-4xl font-black text-white uppercase leading-tight mb-4">Social
+                                Innovation</h3>
+                            <p class="text-sm font-black text-white/70 uppercase tracking-widest">Women
+                                Empowerment • Collaboration • Equity</p>
+                            <p class="mt-4 text-white font-bold text-lg max-w-md">Create tools that empower
+                                diverse groups and foster collaboration for a more equitable society.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screening Phases Section -->
+    <section class="bg-black px-6 py-20 lg:px-40 relative overflow-hidden" id="phases">
+        <!-- Floating Icons Background -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none select-none">
+            <div class="absolute top-10 left-10 text-primary opacity-20 animate-float">
+                <span class="material-symbols-outlined text-[8rem]">psychology</span>
+            </div>
+            <div class="absolute bottom-20 right-10 text-white opacity-10 animate-float-delay-1">
+                <span class="material-symbols-outlined text-[10rem]">timer</span>
+            </div>
+            <div class="absolute top-1/2 left-20 text-primary opacity-10 animate-float-delay-2">
+                <span class="material-symbols-outlined text-[6rem]">search</span>
+            </div>
+            <div class="absolute bottom-40 left-1/3 text-white opacity-5 animate-float">
+                <span class="material-symbols-outlined text-[12rem]">campaign</span>
+            </div>
+            <div class="absolute top-20 right-40 text-primary opacity-15 animate-float-delay-2">
+                <span class="material-symbols-outlined text-[7rem]">verified</span>
+            </div>
+        </div>
+        <div class="mx-auto max-w-[1200px]">
+            <div class="mb-16 text-left">
+                <div
+                    class="bg-primary text-black inline-block px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-4">
+                    SCREENING PROCESS
+                </div>
+                <h2
+                    class="text-6xl lg:text-8xl font-[900] text-primary neon-glow leading-none uppercase tracking-tighter">
+                    PHASES
+                </h2>
+                <p class="mt-6 text-white/80 font-bold text-xl max-w-2xl">
+                    A rigorous 3-day evaluation journey to identify and nurture the most impactful innovations
+                </p>
+            </div>
+
+            <!-- Timeline Container -->
+            <div class="relative w-full max-w-6xl space-y-12">
+                <!-- Vertical Line (gradient) -->
+                <div
+                    style="content: ''; position: absolute; top: 2rem; bottom: 2rem; right: 28px; width: 2px; background: linear-gradient(to bottom, transparent, #B0CB1F 10%, #B0CB1F 90%, transparent); z-index: 0;">
+                </div>
+
+                <!-- DAY 1 -->
+                <div class="relative flex items-start justify-between group">
+                    <div class="w-full pr-16 md:pr-24">
+                        <div
+                            class="bg-primary p-10 md:p-12 rounded-3xl border-2 border-black/10 hover:shadow-[0_0_30px_rgba(176,203,31,0.4)] transition-all duration-300 reveal-on-scroll reveal-hidden-left">
+                            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                                <div>
+                                    <h3 class="text-black font-extrabold text-5xl md:text-6xl leading-none">
+                                        DAY 1</h3>
+                                    <h4 class="text-3xl md:text-4xl font-bold text-black mt-3">Preliminary
+                                        Screening</h4>
+                                </div>
+                                <p
+                                    class="text-black font-mono text-[10px] tracking-[0.2em] uppercase border-b border-black/20 pb-1">
+                                    Idea Relevance & Innovation</p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Objective</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed">Filter ideas based on
+                                            relevance and originality. Ensuring the core concept aligns with the
+                                            competition goals.</p>
+                                    </section>
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Format</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed">Short idea pitch /
+                                            abstract review</p>
+                                    </section>
+                                </div>
+                                <div class="space-y-4">
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Duration</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed font-semibold">7 min
+                                            pitch + 3 min Q&A</p>
+                                    </section>
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Submission</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed">Problem statement +
+                                            proposed solution (1 page)</p>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute right-0 top-0 translate-y-8 z-10">
+                        <div
+                            class="w-14 h-14 rounded-full bg-black border-2 border-primary flex items-center justify-center shadow-[0_0_20px_rgba(176,203,31,0.2)] text-primary">
+                            <span class="material-symbols-outlined text-3xl">lightbulb</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 2 -->
+                <div class="relative flex items-start justify-between group">
+                    <div class="w-full pr-16 md:pr-24">
+                        <div
+                            class="bg-primary p-10 md:p-12 rounded-3xl border-2 border-black/10 hover:shadow-[0_0_30px_rgba(176,203,31,0.4)] transition-all duration-300 reveal-on-scroll reveal-hidden-right">
+                            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                                <div>
+                                    <h3 class="text-black font-extrabold text-5xl md:text-6xl leading-none">
+                                        DAY 2</h3>
+                                    <h4 class="text-3xl md:text-4xl font-bold text-black mt-3">Intermediate
+                                        Screening</h4>
+                                </div>
+                                <p
+                                    class="text-black font-mono text-[10px] tracking-[0.2em] uppercase border-b border-black/20 pb-1">
+                                    Concept Strength & Feasibility</p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Objective</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed">Evaluate depth and
+                                            practicality of shortlisted ideas. Deep dive into the mechanics of
+                                            the solution.</p>
+                                    </section>
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Format</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed">Detailed concept
+                                            presentation</p>
+                                    </section>
+                                </div>
+                                <div class="space-y-4">
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Duration</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed font-semibold">10 min
+                                            pitch + 5 min Q&A</p>
+                                    </section>
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Submission</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed">Solution architecture,
+                                            Implementation plan, Value proposition</p>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute right-0 top-0 translate-y-8 z-10">
+                        <div
+                            class="w-14 h-14 rounded-full bg-black border-2 border-primary flex items-center justify-center shadow-[0_0_20px_rgba(176,203,31,0.2)] text-primary">
+                            <span class="material-symbols-outlined text-3xl">groups</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 3 -->
+                <div class="relative flex items-start justify-between group">
+                    <div class="w-full pr-16 md:pr-24">
+                        <div
+                            class="bg-primary p-10 md:p-12 rounded-3xl border-2 border-black/10 hover:shadow-[0_0_30px_rgba(176,203,31,0.4)] transition-all duration-300 reveal-on-scroll reveal-hidden-left">
+                            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                                <div>
+                                    <h3 class="text-black font-extrabold text-5xl md:text-6xl leading-none">
+                                        DAY 3</h3>
+                                    <h4 class="text-3xl md:text-4xl font-bold text-black mt-3">Final Screening
+                                    </h4>
+                                </div>
+                                <p
+                                    class="text-black font-mono text-[10px] tracking-[0.2em] uppercase border-b border-black/20 pb-1">
+                                    Impact & Execution</p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Objective</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed">Select winning ideas
+                                            based on scalability, impact, and the quality of the prototype/demo.
+                                        </p>
+                                    </section>
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Format</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed">Final pitch with
+                                            demo/prototype</p>
+                                    </section>
+                                </div>
+                                <div class="space-y-4">
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Duration</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed font-semibold">15 min
+                                            pitch + 10 min Q&A</p>
+                                    </section>
+                                    <section>
+                                        <h5 class="text-black font-mono text-[11px] tracking-wider uppercase mb-1">
+                                            Submission</h5>
+                                        <p class="text-sm text-black/80 leading-relaxed">Working Prototype / MVP
+                                            + Final Deck</p>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute right-0 top-0 translate-y-8 z-10">
+                        <div
+                            class="w-14 h-14 rounded-full bg-black border-2 border-primary flex items-center justify-center shadow-[0_0_20px_rgba(176,203,31,0.3)] text-primary">
+                            <span class="material-symbols-outlined text-3xl">emoji_events</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eligibility Section -->
+    <section
+        class="bg-[#B0CB1F] dark:bg-[#0A0A0A] px-4 py-12 lg:px-40 lg:py-20 transition-colors duration-300 relative overflow-hidden"
+        id="eligibility">
+        <div class="mx-auto max-w-7xl">
+            <div class="mb-16 md:mb-24 text-left">
+                <h2
+                    class="text-4xl lg:text-8xl font-[900] text-black neon-glow uppercase leading-none tracking-tighter">
+                    ELIGIBILITY
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div
+                    class="glass-card p-10 rounded-3xl flex flex-col items-center text-center transition-all duration-300 hover:translate-y-[-8px] hover:shadow-2xl group">
+                    <div
+                        class="mb-8 p-4 rounded-full bg-white/5 border border-white/10 group-hover:bg-primary/20 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-4xl">school</span>
+                    </div>
+                    <h3 class="text-white text-xl font-bold mb-3 tracking-tight font-inter">UG & PG Students
+                    </h3>
+                    <p class="text-white/60 text-sm leading-relaxed font-inter">
+                        Open to students of recognized institutions.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="glass-card p-10 rounded-3xl flex flex-col items-center text-center transition-all duration-300 hover:translate-y-[-8px] hover:shadow-2xl group">
+                    <div
+                        class="mb-8 p-4 rounded-full bg-white/5 border border-white/10 group-hover:bg-primary/20 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-4xl">domain</span>
+                    </div>
+                    <h3 class="text-white text-xl font-bold mb-3 tracking-tight font-inter">Institution Limit
+                    </h3>
+                    <p class="text-white/60 text-sm leading-relaxed font-inter">
+                        Maximum 2 teams per institution.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="glass-card p-10 rounded-3xl flex flex-col items-center text-center transition-all duration-300 hover:translate-y-[-8px] hover:shadow-2xl group">
+                    <div
+                        class="mb-8 p-4 rounded-full bg-white/5 border border-white/10 group-hover:bg-primary/20 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-4xl">groups</span>
+                    </div>
+                    <h3 class="text-white text-xl font-bold mb-3 tracking-tight font-inter">Team Size</h3>
+                    <p class="text-white/60 text-sm leading-relaxed font-inter">
+                        4-5 students per team.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div
+                    class="glass-card p-10 rounded-3xl flex flex-col items-center text-center transition-all duration-300 hover:translate-y-[-8px] hover:shadow-2xl group">
+                    <div
+                        class="mb-8 p-4 rounded-full bg-white/5 border border-white/10 group-hover:bg-primary/20 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-4xl">block</span>
+                    </div>
+                    <h3 class="text-white text-xl font-bold mb-3 tracking-tight font-inter">No Inter-college
+                    </h3>
+                    <p class="text-white/60 text-sm leading-relaxed font-inter">
+                        Inter-institutional teams not permitted.
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Hackathon Excitement Section -->
+    <section class="bg-[#000000] text-white overflow-hidden tech-grid">
+        <div class="px-6 py-20 md:py-32 lg:px-40 max-w-[1440px] mx-auto flex flex-col items-center justify-center">
+            <div class="w-full @container">
+                <div class="flex flex-col gap-12">
+                    <div class="flex flex-col gap-6 text-center md:text-left max-w-4xl">
+                        <h2
+                            class="text-6xl lg:text-8xl font-[900] text-primary neon-glow leading-none uppercase tracking-tighter">
+                            WHY ARE WE EXCITED ABOUT THIS IDEATHON?
+                        </h2>
+                        <div class="h-1.5 w-24 bg-primary rounded-full icon-glow mx-auto md:mx-0"></div>
+                        <p
+                            class="text-white/60 text-lg md:text-xl font-normal max-w-[720px] leading-relaxed mx-auto md:mx-0">
+                            Join a movement of visionaries transforming abstract concepts into tangible
+                            solutions. We're not just thinking; we're architecting the future of innovation.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 py-10">
+                        <div
+                            class="group flex flex-col gap-6 p-8 rounded-xl border border-white/10 bg-black hover:border-primary/50 transition-all duration-300">
+                            <div class="text-primary icon-glow h-12 flex items-center">
+                                <span class="material-symbols-outlined !text-5xl">lightbulb</span>
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <h2
+                                    class="text-white text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                                    Groundbreaking Innovation</h2>
+                                <p class="text-white/50 text-base leading-relaxed">
+                                    Unleash your creativity to solve real-world problems. We value novelty and
+                                    the potential to disrupt industries.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="group flex flex-col gap-6 p-8 rounded-xl border border-white/10 bg-black hover:border-primary/50 transition-all duration-300">
+                            <div class="text-primary icon-glow h-12 flex items-center">
+                                <span class="material-symbols-outlined !text-5xl">supervisor_account</span>
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <h2
+                                    class="text-white text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                                    Expert Mentorship</h2>
+                                <p class="text-white/50 text-base leading-relaxed">
+                                    Gain direct access to industry leaders and technical experts who will guide
+                                    you in refining your prototype.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="group flex flex-col gap-6 p-8 rounded-xl border border-white/10 bg-black hover:border-primary/50 transition-all duration-300">
+                            <div class="text-primary icon-glow h-12 flex items-center">
+                                <span class="material-symbols-outlined !text-5xl">rocket_launch</span>
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <h2
+                                    class="text-white text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                                    Real-World Impact</h2>
+                                <p class="text-white/50 text-base leading-relaxed">
+                                    Move beyond theory. Develop viable solutions that have the potential to be
+                                    deployed and make a difference.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Queries Section -->
+    <section class="bg-black py-20 px-6 lg:px-40 border-t border-white/10 relative overflow-hidden" id="queries">
+        <div class="mx-auto max-w-[1000px] relative z-10">
+            <div class="text-left mb-16">
+                <h2
+                    class="text-6xl lg:text-8xl font-[900] text-primary neon-glow leading-none uppercase tracking-tighter mb-4">
+                    For Queries
+                </h2>
+                <div class="h-1 w-20 bg-primary rounded-full icon-glow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+                <!-- Organizing Committee -->
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-r from-primary/20 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative">
+                        <h3
+                            class="flex items-center gap-3 text-xl font-black text-primary uppercase tracking-widest mb-8">
+                            <span class="material-symbols-outlined">badge</span>
+                            Organizing Committee
+                        </h3>
+                        <ul class="space-y-6">
+                            <li class="flex items-center justify-between border-b border-white/10 pb-2">
+                                <span class="text-white font-bold text-lg">Dr. N. Shanmuga Priya</span>
+                                <a href="tel:9894645045"
+                                    class="text-white/60 font-mono hover:text-primary transition-colors">98946
+                                    45045</a>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-white/10 pb-2">
+                                <span class="text-white font-bold text-lg">Dr. K. Sumathi</span>
+                                <a href="tel:9894938120"
+                                    class="text-white/60 font-mono hover:text-primary transition-colors">98949
+                                    38120</a>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-white/10 pb-2">
+                                <span class="text-white font-bold text-lg">Dr. M. Praveena</span>
+                                <a href="tel:9865554616"
+                                    class="text-white/60 font-mono hover:text-primary transition-colors">98655
+                                    54616</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Student Coordinator -->
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-l from-primary/20 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative">
+                        <h3
+                            class="flex items-center gap-3 text-xl font-black text-primary uppercase tracking-widest mb-8">
+                            <span class="material-symbols-outlined">school</span>
+                            Student Coordinator
+                        </h3>
+                        <ul class="space-y-6">
+                            <li class="flex items-center justify-between border-b border-white/10 pb-2">
+                                <span class="text-white font-bold text-lg">Aravindhan . M</span>
+                                <a href="tel:9842473107"
+                                    class="text-white/60 font-mono hover:text-primary transition-colors">98424
+                                    73107</a>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-white/10 pb-2">
+                                <span class="text-white font-bold text-lg">Pavithra. M</span>
+                                <a href="tel:8870853806"
+                                    class="text-white/60 font-mono hover:text-primary transition-colors">88708
+                                    53806</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+    <footer class="glass-dark border-t-4 border-black px-6 py-16 lg:px-40">
+        <div class="mx-auto flex max-w-[1200px] flex-col gap-16 lg:flex-row lg:justify-between">
+            <div class="max-w-md text-left">
+                <div class="mb-8 flex items-center gap-4">
+                    <img src="sns-logo.png" alt="SNS Logo" class="h-12 w-auto object-contain">
+                    <img src="college-logo.png" alt="College Logo" class="h-12 w-auto object-contain">
+                    <span class="text-2xl font-black text-white ml-2">IDEATHON 2026</span>
+                </div>
+                <p class="mb-8 text-white/60 font-medium leading-relaxed">
+                    An initiative by Dr. SNS Rajalakshmi College of Arts and Science to foster a culture of
+                    innovation and problem-solving among students nationwide.
+                </p>
+                <div class="flex gap-4">
+                    <a class="h-12 w-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-primary hover:text-black transition-colors"
+                        href="#">
+                        <span class="material-symbols-outlined">public</span>
+                    </a>
+                    <a class="h-12 w-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-primary hover:text-black transition-colors"
+                        href="#">
+                        <span class="material-symbols-outlined">mail</span>
+                    </a>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 text-left">
+                <div>
+                    <h4 class="mb-6 text-sm font-black uppercase tracking-[0.3em] text-primary">Quick Navigation
+                    </h4>
+                    <ul class="space-y-4 text-white/70 font-bold">
+                        <li><a class="hover:text-primary transition-colors" href="#">Rules &amp; Regulations</a>
+                        </li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Submission Portal</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Frequently Asked Questions</a>
+                        </li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Contact Organizing Team</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="mb-6 text-sm font-black uppercase tracking-[0.3em] text-primary">Venue Details</h4>
+                    <p class="text-white/70 font-bold leading-loose">
+                        SNS Kalvi Nagar, Saravanampatti Post,<br />
+                        Coimbatore, Tamil Nadu 641035
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div
+            class="mx-auto mt-16 max-w-[1200px] border-t border-white/10 pt-8 text-left text-xs font-black uppercase tracking-widest text-white/30">
+            © 2026 Dr. SNS Rajalakshmi College of Arts and Science. Built for the Future.
+        </div>
+    </footer>
+    </div>
+    <script>
+        const container = document.getElementById('dot-grid-container');
+        const dots = [];
+        const spacing = 40; // Increased for better performance
+        const interactionRadius = 400;
+        const pushStrength = 150;
+        function createGrid() {
+            container.innerHTML = '';
+            dots.length = 0;
+            const rect = container.getBoundingClientRect();
+            const cols = Math.floor(rect.width / spacing);
+            const rows = Math.floor(rect.height / spacing);
+            for (let i = 0; i <= rows; i++) {
+                for (let j = 0; j <= cols; j++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    const x = j * spacing + (spacing / 2);
+                    const y = i * spacing + (spacing / 2);
+                    dot.style.left = `${x}px`;
+                    dot.style.top = `${y}px`;
+                    container.appendChild(dot);
+                    dots.push({
+                        element: dot,
+                        baseX: x,
+                        baseY: y
+                    });
+                }
+            }
+        }
+        let rafId = null;
+        let mouseX = 0;
+        let mouseY = 0;
+        let isAnimating = false;
+
+        function updateDots() {
+            if (!isAnimating) return;
+
+            const radiusSquared = interactionRadius * interactionRadius;
+
+            for (let i = 0; i < dots.length; i++) {
+                const dot = dots[i];
+                const dx = dot.baseX - mouseX;
+                const dy = dot.baseY - mouseY;
+                const distSquared = dx * dx + dy * dy;
+
+                // Early exit optimization - skip if outside radius
+                if (distSquared > radiusSquared) {
+                    if (dot.element.style.opacity !== '0') {
+                        dot.element.style.transform = 'translate(0, 0) scale(1)';
+                        dot.element.style.opacity = '0';
+                    }
+                    continue;
+                }
+
+                const distance = Math.sqrt(distSquared);
+                // Elaborate edge with quintic ease-out for ultra-smooth gradual falloff
+                const rawInfluence = (interactionRadius - distance) / interactionRadius;
+                const t = rawInfluence;
+                const influence = 1 - Math.pow(1 - t, 5); // quintic ease-out for very elaborate edge
+
+                const angle = Math.atan2(dy, dx);
+                const moveX = Math.cos(angle) * influence * pushStrength;
+                const moveY = Math.sin(angle) * influence * pushStrength;
+                const opacityValue = influence * 0.65;
+
+                dot.element.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + influence * 0.25})`;
+                dot.element.style.opacity = opacityValue.toFixed(2);
+            }
+
+            rafId = requestAnimationFrame(updateDots);
+        }
+
+        function handleMouseMove(e) {
+            const rect = container.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+
+            if (!isAnimating) {
+                isAnimating = true;
+                rafId = requestAnimationFrame(updateDots);
+            }
+        }
+        function handleMouseLeave() {
+            isAnimating = false;
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].element.style.transform = 'translate(0, 0) scale(1)';
+                dots[i].element.style.opacity = '0';
+            }
+        }
+        const hero = document.getElementById('hero-section');
+        if (hero) {
+            hero.addEventListener('mousemove', handleMouseMove);
+            hero.addEventListener('mouseleave', handleMouseLeave);
+        }
+        window.addEventListener('resize', () => {
+            clearTimeout(window.resizeTimer);
+            window.resizeTimer = setTimeout(createGrid, 250);
+        });
+        createGrid();
+
+        /* Lightbulb Interaction Script */
+        const bulb = document.getElementById('lightbulb');
+        if (bulb) {
+            let startY = 0;
+            let currentY = 0;
+            let isDragging = false;
+            let isLit = false;
+            const pullLimit = 100;
+
+            bulb.addEventListener('mousedown', startDrag);
+            bulb.addEventListener('touchstart', startDrag, { passive: false });
+
+            window.addEventListener('mousemove', drag);
+            window.addEventListener('touchmove', drag, { passive: false });
+            window.addEventListener('mouseup', endDrag);
+            window.addEventListener('touchend', endDrag);
+
+            function startDrag(e) {
+                isDragging = true;
+                const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+                startY = clientY;
+                bulb.style.transition = 'none';
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+
+                // Only prevent default if the event is cancelable to avoid errors
+                if (e.cancelable) {
+                    e.preventDefault();
+                }
+
+                const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+                const deltaY = clientY - startY;
+                currentY = Math.max(0, Math.min(deltaY, pullLimit));
+                bulb.style.transform = `translateY(${currentY}px)`;
+            }
+
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                bulb.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                bulb.style.transform = 'translateY(0)';
+
+                // Toggle logic on sufficient pull
+                if (currentY > 30) {
+                    if (isLit) {
+                        isLit = false;
+                        bulb.classList.remove('bulb-on');
+                    } else {
+                        triggerBlink();
+                    }
+                }
+                currentY = 0;
+            }
+
+            function triggerBlink() {
+                bulb.classList.add('animating-blink');
+                setTimeout(() => {
+                    bulb.classList.remove('animating-blink');
+                    bulb.classList.add('bulb-on');
+                    isLit = true;
+                }, 1200);
+            }
+        }
+
+
+        // Initial Bulb Animation
+        window.addEventListener('load', () => {
+            const bulb = document.getElementById('lightbulb');
+            if (bulb) {
+                // Remove the animation class after it finishes so it doesn't block JS transforms
+                bulb.addEventListener('animationend', () => {
+                    bulb.classList.remove('bulb-animate-in');
+                    bulb.style.opacity = '1'; /* Ensure it stays visible */
+                    bulb.style.transform = 'translateY(0)'; /* Reset transform explicitly */
+                });
+
+                // Small delay to ensure layout is ready
+                setTimeout(() => {
+                    bulb.classList.remove('bulb-enter-initial');
+                    bulb.classList.add('bulb-animate-in');
+                }, 100);
+            }
+        });
+        // Scroll Observer for Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                } else {
+                    entry.target.classList.remove('reveal-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+
+</html>
